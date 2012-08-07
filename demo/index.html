@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Demos</title>
+    <link media="screen" rel="stylesheet" href="github.css" />
+    <script type="text/javascript" src="rainbow-custom.min.js"></script>
+</head>
+<body style="padding-left: 100px;">
+
+<h3>Reverse demo</h3>
+<div id="foo" style="width:100px;height:100px;position:relative;background-color:red;"></div>
+
+<pre><code data-language="javascript">var foo = document.getElementById('foo'),
+    tw = new Tween(function( p ){
+        foo.style.left = p*300 + 'px';
+    }, {
+        duration: 500,
+        easing: 'swing-fromTo',
+        onBeforeEnd: function(){
+            this.reverse();
+
+            return false;
+        }
+    });
+
+tw.start(1000);
+
+foo.addEventListener('click', function(){
+    if( tw.state === Tween.states.PAUSED ){
+        tw.resume();
+    } else {
+        tw.pause();
+    }
+}, false);</code></pre>
+
+<h3>Bangup demo</h3>
+<div id="bang" style="width:100px;height:100px;position:relative;background-color:blue;"></div>
+<pre><code data-language="javascript">var bang = document.getElementById('bang'),
+    tw = new Tween(function( p ){
+        bang.innerHTML = '$' + Tween.round(p*500).toFixed(2);
+    }, {
+        duration: 1500,
+        easing: 'cubic-inOut',
+        onBeforeEnd: function(){
+            this.restart();
+
+            return false;
+        }
+    });
+
+tw.start(1000);
+
+bang.addEventListener('click', function(){
+    if( tw.state === Tween.states.PAUSED ){
+        tw.resume();
+    } else {
+        tw.pause();
+    }
+}, false);</code></pre>
+<h3>Split + pause + reverse demo</h3>
+<div style="width:100px;height:100px;position:relative;">
+    <div class="pic" style="width:100px;height:100px;position:absolute;background-color:purple;"></div>
+</div>
+<pre><code data-language="javascript">var pic = document.querySelector('div.pic'),
+    parent = pic.parentNode,
+
+    parts = crop( 20, 20 ),
+    tw = window.ptw = new Tween(function( p ){
+        parts.forEach(function( part ){
+            part.elm.style.top = part.top + p*part.deltaTop + 'px';
+            part.elm.style.left = part.left + p*part.deltaLeft + 'px';
+        });
+    }, {
+        duration: 1500,
+        easing: 'cubic-inOut',
+        onBeforeEnd: function(){
+            var t = this;
+
+            t.pause();
+            setTimeout(function(){
+                t.resume();
+                t.reverse();
+
+                if( !t.reversed ){
+                    parts.forEach(function( part ){
+                        part.deltaTop = (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200);
+                        part.deltaLeft = (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200);
+                    });
+                }
+            }, 1000);
+
+            return false;
+        }
+    });
+
+tw.start(1000);
+
+function crop( rows, colums ){
+    var w = 100/rows,
+            h = 100/colums;
+
+    for( var copies=[], i=rows, j, c, t, l; i--; ){
+        for( j=colums; j--; ){
+            c = pic.cloneNode();
+
+            c.style.width = w + 'px';
+            c.style.height = h + 'px';
+
+            c.style.top =   (t = i*h) + 'px';
+            c.style.left =  (l = j*w) + 'px';
+
+            parent.appendChild(c);
+
+            copies.push({
+                elm: c,
+
+                top: t,
+                left: l,
+
+                deltaTop: (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200),
+                deltaLeft: (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200)
+            });
+        }
+    }
+
+    parent.removeChild(pic);
+
+    return copies;
+}</code></pre>
+
+<h3>Letters demo</h3>
+<div id='letters' style="width:300px;height:100px;position:relative;background-color:green;">
+
+</div>
+<pre><code data-language="javascript">// Letters demo
+//
+(function(){
+    var bang = document.getElementById('letters'),
+        text = "'Just think of how stupid the average person is, and then realize half of them are even stupider!'",
+        tw = new Tween(function( p ){
+            bang.innerHTML = text.slice(0, Tween.round(p*text.length));
+        }, {
+            duration: 3500,
+            easing: 'linear',
+            onBeforeEnd: function(){
+                var t = this;
+
+                t.pause();
+                setTimeout(function(){
+                    t.resume();
+                    t.reverse();
+                }, 2000);
+
+                return false;
+            }
+        });
+
+    tw.start(1000);
+
+    bang.addEventListener('click', function(){
+        if( tw.state === Tween.states.PAUSED ){
+            tw.resume();
+        } else {
+            tw.pause();
+        }
+    }, false);
+})();
+</code></pre>
+
+<script type="text/javascript" src="../lib/Tween.js"></script>
+<script type="text/javascript">
+// Animation demo
+//
+(function(){
+    var foo = document.getElementById('foo'),
+        tw = new Tween(function( p ){
+            foo.style.left = p*300 + 'px';
+        }, {
+            duration: 500,
+            easing: 'swing-fromTo',
+            onBeforeEnd: function(){
+                this.reverse();
+
+                return false;
+            }
+        });
+
+    tw.start(1000);
+
+    foo.addEventListener('click', function(){
+        if( tw.state === Tween.states.PAUSED ){
+            tw.resume();
+        } else {
+            tw.pause();
+        }
+    }, false);
+})();
+
+// Bangup demo
+//
+(function(){
+    var bang = document.getElementById('bang'),
+        tw = new Tween(function( p ){
+            bang.innerHTML = '$' + Tween.round(p*500).toFixed(2);
+        }, {
+            duration: 1500,
+            easing: 'cubic-inOut',
+            onBeforeEnd: function(){
+                this.restart();
+
+                return false;
+            }
+        });
+
+    tw.start(1000);
+
+    bang.addEventListener('click', function(){
+        if( tw.state === Tween.states.PAUSED ){
+            tw.resume();
+        } else {
+            tw.pause();
+        }
+    }, false);
+})();
+
+// Multiple elements animation demo and reverse
+//
+(function(){
+    var pic = document.querySelector('div.pic'),
+        parent = pic.parentNode,
+
+        parts = crop( 20, 20 ),
+        tw = window.ptw = new Tween(function( p ){
+            parts.forEach(function( part ){
+                part.elm.style.top = part.top + p*part.deltaTop + 'px';
+                part.elm.style.left = part.left + p*part.deltaLeft + 'px';
+            });
+        }, {
+            duration: 1500,
+            easing: 'cubic-inOut',
+            onBeforeEnd: function(){
+                var t = this;
+
+                t.pause();
+                setTimeout(function(){
+                    t.resume();
+                    t.reverse();
+
+                    if( !t.reversed ){
+                        parts.forEach(function( part ){
+                            part.deltaTop = (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200);
+                            part.deltaLeft = (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200);
+                        });
+                    }
+                }, 1000);
+
+                return false;
+            }
+        });
+
+    tw.start(1000);
+
+    function crop( rows, colums ){
+        var w = 100/rows,
+            h = 100/colums;
+
+        for( var copies=[], i=rows, j, c, t, l; i--; ){
+            for( j=colums; j--; ){
+                c = pic.cloneNode();
+
+                c.style.width = w + 'px';
+                c.style.height = h + 'px';
+
+                c.style.top =   (t = i*h) + 'px';
+                c.style.left =  (l = j*w) + 'px';
+
+                parent.appendChild(c);
+
+                copies.push({
+                    elm: c,
+
+                    top: t,
+                    left: l,
+
+                    deltaTop: (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200),
+                    deltaLeft: (Math.random() > 0.5 ? 1 : -1) * Tween.round(Math.random()*200)
+                });
+            }
+        }
+
+        parent.removeChild(pic);
+
+        return copies;
+    }
+})();
+
+// Letters demo
+//
+(function(){
+    var bang = document.getElementById('letters'),
+        text = "'Just think of how stupid the average person is, and then realize half of them are even stupider!'",
+        tw = new Tween(function( p ){
+            bang.innerHTML = text.slice(0, Tween.round(p*text.length));
+        }, {
+            duration: 3500,
+            easing: 'linear',
+            onBeforeEnd: function(){
+                var t = this;
+
+                t.pause();
+                setTimeout(function(){
+                    t.resume();
+                    t.reverse();
+                }, 2000);
+
+                return false;
+            }
+        });
+
+    tw.start(1000);
+
+    bang.addEventListener('click', function(){
+        if( tw.state === Tween.states.PAUSED ){
+            tw.resume();
+        } else {
+            tw.pause();
+        }
+    }, false);
+})();
+</script>
+</body>
+</html>
