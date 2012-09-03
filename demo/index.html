@@ -16,7 +16,7 @@
         foo.style.left = p*300 + 'px';
     }, {
         duration: 500,
-        easing: 'swing-fromTo',
+        easing: 'swingFromTo',
         onBeforeEnd: function(){
             this.reverse();
 
@@ -41,7 +41,7 @@ foo.addEventListener('click', function(){
         bang.innerHTML = '$' + Tween.round(p*500).toFixed(2);
     }, {
         duration: 1500,
-        easing: 'cubic-inOut',
+        easing: 'easeInOutCubic',
         onBeforeEnd: function(){
             this.restart();
 
@@ -73,7 +73,7 @@ bang.addEventListener('click', function(){
         });
     }, {
         duration: 1500,
-        easing: 'cubic-inOut',
+        easing: 'easeInOutCubic',
         onBeforeEnd: function(){
             var t = this;
 
@@ -178,7 +178,7 @@ function crop( rows, colums ){
             foo.style.left = p*300 + 'px';
         }, {
             duration: 500,
-            easing: 'swing-fromTo',
+            easing: 'swingFromTo',
             onBeforeEnd: function(){
                 this.reverse();
 
@@ -205,7 +205,7 @@ function crop( rows, colums ){
             bang.innerHTML = '$' + Tween.round(p*500).toFixed(2);
         }, {
             duration: 1500,
-            easing: 'cubic-inOut',
+            easing: 'easeInOutCubic',
             onBeforeEnd: function(){
                 this.restart();
 
@@ -238,7 +238,7 @@ function crop( rows, colums ){
             });
         }, {
             duration: 1500,
-            easing: 'cubic-inOut',
+            easing: 'easeInOutCubic',
             onBeforeEnd: function(){
                 var t = this;
 

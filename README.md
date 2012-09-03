@@ -113,9 +113,6 @@ Why do we need this event? It allow you to do many interesting things. By return
 #### Tween.round(num)
 Super optimized round function. It is useful to prevent anti-aliasing when drawing on canvas.
 
-#### Tween.getEasingFunction(name)
-Return function for given easing name.
-
 #### Tween.useAnimationFrame()
 Use requestAnimationFrame as timer.( this is default )
 
