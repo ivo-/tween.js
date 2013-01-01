@@ -9,7 +9,6 @@ Simple tween class. It just calculates tween progress, you decide what to do wit
 - Highly optimized
 - Supports variety of easing equations
 - Gives you full run-time control of your tween
-- Good base for every animation engine
 
 ## API
 
@@ -59,10 +58,10 @@ var style = document.getElementById('foo').style,
 ```
 
 #### tween.start(delay);
-Start tween from beginning. If other tween is not finished yet, currently started one will be added to queue and started when all animation before it are finished.
+Start the tween from beginning wtih optional delay.
 
 #### tween.stop(clearQueue);
-Stops current animation and optional clears the queue.
+Stops current animation and optional clears animations queue.
 
 #### tween.pause();
 #### tween.resume();
