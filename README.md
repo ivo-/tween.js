@@ -83,10 +83,6 @@ Tween.setFPSCounterListener(function(fps){
 });
 ```
 
-## NOTES
-
-See demos in /demos folder.
-
 ## Licence
 MIT
 
