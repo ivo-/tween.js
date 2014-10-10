@@ -2,21 +2,23 @@
 
 Simple tween class. It just does the math.
 
-## API
+## Docs
 
-#### Create new tween object
+### Example
 
 ```javascript
 var style = document.getElementById('foo').style,
-
     tween = new Tween({
         easing: 'linear',   // linear, swing, cubic-in, bounce-past, so on ...
         duration: 'normal', // slow|normal|fast or milliseconds
 
+        // "p" is the tween progress (number between 0 and 1)
         onFrame: function( p ){
-            style.left = 200 + 400*p + 'px'; // "p" is number between 0 and 1,
+            style.left = 200 + 400*p + 'px'; 
         }
 
+        // More events:
+        //
         // onEnd: function(){},
         // onBeforeEnd: function(){},
         // onFPSUpdate: function(){},
@@ -24,6 +26,7 @@ var style = document.getElementById('foo').style,
         // onPause: function(){},
         // onResume: function(){},
         // onReverse: function(){},
+        //
     });
 
 
@@ -33,9 +36,13 @@ var style = document.getElementById('foo').style,
     }, {
         easing: 'linear',
         duration: 'normal'
-    })
+    });
+    
+    // Start your tween
+    tween.start();
 ```
 
+### API
 #### tween.start();
 #### tween.start(delay);
 #### tween.stop();
@@ -46,13 +53,15 @@ var style = document.getElementById('foo').style,
 #### tween.restart();
 #### tween.finish();
 
-## Properties
+### Properties
 #### tween.reversed
+`true` if tween is currently reversed.
+
 #### tween.state
 
 ```javascript
 if( tween.state === Tween.states.READY ){
-    // ...
+    // Do something if tween is finished
 }
 ```
 
@@ -68,8 +77,12 @@ states: {
 
 ## Events
 #### onFrame: function(p){}
+This is the place to put your animation logic. `p` is the tween progress (number between 0 and 1).
+
 #### onEnd: function(){}
 #### onBeforeEnd: function(){}
+This event can be used to do something right before the tween is over (like reverse the tween). See the demos for examples.
+
 #### onStart: function(){}
 #### onPause: function(){}
 #### onResume: function(){}
@@ -77,6 +90,7 @@ states: {
 
 ## More
 
+Setup FPS counter:
 ```javascript
 Tween.setFPSCounterListener(function(fps){
     console.log(fps);
@@ -86,7 +100,7 @@ Tween.setFPSCounterListener(function(fps){
 ## Licence
 MIT
 
-Copyright (C) 2012 Ivailo Hristov
+Copyright (C) 2012-2014 Ivailo Hristov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
